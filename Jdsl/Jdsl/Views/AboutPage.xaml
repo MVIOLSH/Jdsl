@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Jdsl.Views.AboutPage"
+             xmlns:vm="clr-namespace:Jdsl.ViewModels"
+             xmlns:models="clr-namespace:Jdsl.Models;assembly=Jdsl"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}">
+    
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+
+
+    <RefreshView x:DataType="vm:AboutViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding Announcements}"
+                SelectionMode="Single">
+
+            <CollectionView.EmptyView>
+                <StackLayout Padding="12">
+                    <Label HorizontalOptions="Center" Text="No Announcements at this time" FontSize="20" FontAttributes="Bold"></Label>
+                </StackLayout>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" BackgroundColor="{StaticResource Primary}">
+                        <Frame CornerRadius="10" HasShadow="True" BackgroundColor="White">
+                            <StackLayout Padding="10" x:DataType="models:Announcement" BackgroundColor="White">
+                                <StackLayout Orientation="Vertical">
+                                    
+                                    <Label Text="{Binding Title}" 
+                                           LineBreakMode="NoWrap" 
+                                           Style="{DynamicResource ListItemTextStyle}" 
+                                           FontSize="35"
+                                           FontAttributes="Bold"
+                                           TextColor="Black"
+                                           Padding="10"
+                                           HorizontalTextAlignment="Center"
+                                           TextDecorations="Underline"/>
+                                        <Label Text="{Binding Content}" 
+                                               LineBreakMode="WordWrap"
+                                               Style="{DynamicResource ListItemDetailTextStyle}"
+                                               FontSize="20" 
+                                               TextColor="Black"/>
+                                   <StackLayout Orientation="Horizontal">
+                                    <Label Text="Posted By: " 
+                                           LineBreakMode="WordWrap"
+                                           Style="{DynamicResource ListItemDetailTextStyle}"
+                                           FontSize="20" 
+                                           TextColor="DarkRed"
+                                           FontAttributes="Bold"/>
+                                    <Label Text="{Binding Type}" 
+                                           LineBreakMode="WordWrap"
+                                           Style="{DynamicResource ListItemDetailTextStyle}"
+                                           FontSize="20" 
+                                           TextColor="Black"/>
+                                   </StackLayout>
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AboutViewModel}}, Path=ItemTapped}"		
+                                CommandParameter="{Binding .}">
+                                            </TapGestureRecognizer>
+                                        </StackLayout.GestureRecognizers>
+                               </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

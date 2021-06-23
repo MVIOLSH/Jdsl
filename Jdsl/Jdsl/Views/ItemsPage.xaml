@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Jdsl.Views.ItemsPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:Jdsl.ViewModels"  
+             xmlns:model="clr-namespace:Jdsl.Models"  
+             x:Name="BrowseItemsPage"
+             BackgroundColor="{StaticResource Primary}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add ticket" Command="{Binding AddItemCommand}" />
+    </ContentPage.ToolbarItems>
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding Items}"
+                SelectionMode="Single">
+
+            <CollectionView.EmptyView>
+                <StackLayout Padding="12">
+                    <Label HorizontalOptions="Center" Text="No Shops Matching Criteria" FontSize="20" FontAttributes="Bold"></Label>
+                </StackLayout>
+            </CollectionView.EmptyView>
+            <CollectionView.Header>
+                <Frame CornerRadius="15" Margin="0" Padding="0" HasShadow="True">
+                <StackLayout BackgroundColor="{StaticResource Primary}">
+                <Entry Placeholder="Type search phrase.." Text="{Binding PhraseSearch}"
+                       FontSize="20"
+                       TextColor="Black"
+                       BackgroundColor="White"
+                />
+                <Button Text="Search" Command="{Binding SearchCommand}"
+                        BackgroundColor="DarkRed"
+                        TextColor="White"
+                        FontSize="20"
+                        BorderColor="White"
+                        Padding="0,10,0,0"
+                />
+                </StackLayout>
+                    </Frame>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" BackgroundColor="{StaticResource Primary}">
+                       
+                            <Frame CornerRadius="10" HasShadow="True" BackgroundColor="White">
+                                
+                                <StackLayout Padding="10" x:DataType="model:Shop" BackgroundColor="White">
+                                    <SwipeView>
+                                        <SwipeView.RightItems>
+                                            <SwipeItems Mode="Execute">
+                                                <SwipeItem BackgroundColor="Transparent"
+                                                           Text="CallShop"
+                                                           Icon="call.png"
+                                                           Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=CallShopCommand}"		
+                                                           CommandParameter="{Binding .}"/>
+                                            </SwipeItems>
+                                        </SwipeView.RightItems>
+                                    <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding Facia}" WidthRequest="66" />
+                                        <Label Text="{Binding ShopNumber}" 
+                                       LineBreakMode="NoWrap" 
+                                       Style="{DynamicResource ListItemTextStyle}" 
+                                       FontSize="35"
+                                       FontAttributes="Bold"
+                                       TextColor="Black"
+                                       Padding="10"/>
+                        <Label Text="{Binding Town}" 
+                            LineBreakMode="WordWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="20" 
+                            TextColor="Black"/>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
+                                CommandParameter="{Binding .}">
+                            </TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+
+                                    </StackLayout>
+                                    </SwipeView>
+                            </StackLayout>
+                       
+                        </Frame>
+                        
+                    </Grid>
+                    
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

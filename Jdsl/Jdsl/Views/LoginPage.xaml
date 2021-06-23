@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Jdsl.ViewModels;assembly=Jdsl"
+             mc:Ignorable="d"
+             x:Class="Jdsl.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             BackgroundColor="{StaticResource Primary}">
+            
+    <ContentPage.BindingContext>
+        <viewModels:LoginViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+       
+            <StackLayout Orientation="Vertical"
+                     VerticalOptions="Center"
+                     Padding="30"
+                     Spacing="20">
+                <Image Source="logoMixed.png"></Image>
+                
+                    
+                    <Label Text="JD Shops Locator App!"
+                           VerticalOptions="CenterAndExpand" 
+                           HorizontalOptions="CenterAndExpand" 
+                           FontSize="30"
+                           TextColor="Black"
+                           BackgroundColor="Transparent"/>
+
+            <Label Text="Log in and enjoy"
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" 
+                   FontSize="20"
+                   TextColor="Black"
+                   BackgroundColor="Transparent"/>
+            <Frame CornerRadius="15" Margin="0" Padding="0" HasShadow="True">
+                <StackLayout>
+            <Entry Text="{Binding Username}"
+                   FontSize="20"
+                   Placeholder="Email"
+                   TextColor="Black"
+                   BackgroundColor="White"/>
+        </StackLayout>
+                        </Frame>
+            <Frame CornerRadius="15" Margin="0" Padding="0" HasShadow="True">
+                    <StackLayout>
+                        <Entry Text="{Binding Password}"
+                                       FontSize="20"
+                                       IsPassword="True"
+                                       Placeholder="Password"
+                                       TextColor="Black"
+                                       BackgroundColor="White"/>
+
+                    </StackLayout>
+                    </Frame>
+                    <Frame CornerRadius="15" Margin="0" Padding="0" HasShadow="True">
+                <StackLayout>
+                    <Button Text="Login" 
+                            Command="{Binding LoginCommand}"
+                            BackgroundColor="DarkRed"
+                            TextColor="White"
+                            FontSize="20"
+                            BorderColor="White"
+                    />
+                </StackLayout>
+                        </Frame>
+            
+            <Label Text="Don't have an account? Please Register!" FontSize="18" TextColor="DarkRed" FontAttributes="Bold">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
+            </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

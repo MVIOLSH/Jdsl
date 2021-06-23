@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Jdsl.ViewModels;assembly=Jdsl"
+             x:Class="Jdsl.Views.RegisterPage"
+             BackgroundColor="{StaticResource Primary}">
+<ContentPage.BindingContext>
+    <viewModels:RegisterViewModel/>
+</ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical"
+                     VerticalOptions="Center"
+                     Spacing="30"
+                     Padding="30">
+
+            <Label Text="Let's Register"
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" 
+                   FontSize="30"
+                   TextColor="Black"
+                   BackgroundColor="Transparent"/>
+            <Frame CornerRadius="15" Margin="0" Padding="0" HasShadow="True">
+                <StackLayout BackgroundColor="Transparent">
+                    <Entry Text="{Binding Username}"
+                   Placeholder="email"
+                   FontSize="20"
+                   TextColor="Black"
+                   BackgroundColor="White"/>
+                </StackLayout>
+            </Frame>
+            <Frame CornerRadius="15" Margin="0" Padding="0" HasShadow="True">
+                <StackLayout BackgroundColor="Transparent">
+                    <Entry Text="{Binding Password}"
+                   Placeholder="password"
+                   IsPassword="True"
+                   FontSize="20"
+                   TextColor="Black"
+                   BackgroundColor="White"/>
+                </StackLayout>
+            </Frame>
+                    <Frame CornerRadius="15" Margin="0" Padding="0" HasShadow="True">
+                <StackLayout BackgroundColor="Transparent">
+                    <Entry Text="{Binding ConfirmPassword}"
+                   Placeholder="confirm password"
+                   IsPassword="True"
+                   FontSize="20"
+                   TextColor="Black"
+                   BackgroundColor="White"/>
+                </StackLayout>
+            </Frame>
+                            <Frame CornerRadius="15" Margin="0" Padding="0" HasShadow="True">
+                <StackLayout BackgroundColor="Transparent">
+                    <Entry Text="{Binding Name}"
+                   Placeholder="Name"
+                   FontSize="20"
+                   TextColor="Black"
+                   BackgroundColor="White"/>
+                </StackLayout>
+            </Frame>
+                                    <Frame CornerRadius="15" Margin="0" Padding="0" HasShadow="True">
+                <StackLayout BackgroundColor="Transparent">
+                    <Entry Text="{Binding Surname}"
+                   Placeholder="Surname"
+                   FontSize="20"
+                   TextColor="Black"
+                   BackgroundColor="White"/>
+        </StackLayout>
+        </Frame>
+            <Frame CornerRadius="15" Margin="0" Padding="0" HasShadow="True">
+                <StackLayout BackgroundColor="Transparent">
+                    <Button Command="{Binding RegisterCommand}"
+                    Text="Register"
+                    TextColor="White"
+                    BackgroundColor="DarkRed"
+                    FontSize="20"/>
+        </StackLayout>
+        </Frame>
+            <Frame CornerRadius="5" Margin="0" Padding="0" HasShadow="True">
+                <StackLayout BackgroundColor="Transparent">
+                    <Label Text="Please remember to send a message or ask in office to ACTIVATE the account. Otherwise you will not be able to Log In!"
+                           FontSize="15"
+                           TextColor="White"
+                           BackgroundColor="{StaticResource Primary}"
+                           LineBreakMode="WordWrap"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
