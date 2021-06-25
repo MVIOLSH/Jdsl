@@ -32,8 +32,8 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
-		<string>bluetooth-central</string>
 		<string>fetch</string>
+		<string>remote-notification</string>
 		<string>processing</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
@@ -57,10 +57,10 @@
 		<string>MKDirectionsModeCar</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/JDSLIcons.appiconset</string>
+	<string>Launch</string>
 	<key>UIMainStoryboardFile</key>
-	<string>LaunchScreen</string>
+	<string>Launch</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
 </dict>
 </plist>

@@ -30,7 +30,7 @@ namespace Jdsl.ViewModels
         
         public Xamarin.Forms.Command<Shop> ItemTapped { get; }
         public Xamarin.Forms.Command<Shop> CallShopCommand { get; }
-        public int LoadCounter { get; set; } = 50;
+        //public int LoadCounter { get; set; } = 50;
         public string PhraseSearch { get; set; }
         public Xamarin.Forms.Command SearchCommand { get; }
 
@@ -38,7 +38,7 @@ namespace Jdsl.ViewModels
         {
             Title = "Shops";
             Items = new ObservableCollection<Shop>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            LoadItemsCommand = new Command(ExecuteLoadItemsCommand);
 
             ItemTapped = new Xamarin.Forms.Command<Shop>(OnItemSelected);
 
@@ -50,35 +50,27 @@ namespace Jdsl.ViewModels
 
          async void CallShop(Shop shop)
         {
-            //Device.OpenUri(new Uri("tel:" + obj));
             await Launcher.OpenAsync(new Uri(("tel:" + shop.PhoneNumber)));
         }
 
-        async Task ExecuteLoadItemsCommand()
+        void ExecuteLoadItemsCommand()
         {
             IsBusy = false;
             
-                var client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", Settings.SecurityToken);
-                var response = await client.GetAsync("https://jdshops-api-app.azurewebsites.net/api/shops");
-                jsonString = await response.Content.ReadAsAsync<ObservableCollection<Shop>>();
-                var items = jsonString;
+                //var client = new HttpClient();
+                //client.DefaultRequestHeaders.Authorization =
+                //    new AuthenticationHeaderValue("Bearer", Settings.SecurityToken);
+                //var response = await client.GetAsync("https://jdshops-api-app.azurewebsites.net/api/shops");
+                
+                //jsonString = await response.Content.ReadAsAsync<ObservableCollection<Shop>>();
+                //Settings.ItmesString = JsonConvert.SerializeObject(jsonString);
+                Items.Clear();
+
+                var items = JsonConvert.DeserializeObject<ObservableCollection<Shop>>(Settings.ItmesString);
                 foreach (var item in items)
                 {
-                    if (Items.Count <= LoadCounter)
-                    {
-                        Items.Add(item);
-                    }
-                    else
-                    {
-                        return;
-                    }
-                    
-                    
+                    Items.Add(item);
                 }
-
-                
 
         }
 

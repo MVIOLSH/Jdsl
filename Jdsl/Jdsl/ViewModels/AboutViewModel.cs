@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Jdsl.Helpers;
 using Jdsl.Models;
+using Newtonsoft.Json;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -42,6 +43,9 @@ namespace Jdsl.ViewModels
             {
                 Announcements.Add(item);
             }
+            var response2 = await client.GetAsync("https://jdshops-api-app.azurewebsites.net/api/shops");
+            var jsonString2 = await response2.Content.ReadAsAsync<ObservableCollection<Shop>>();
+            Settings.ItmesString = JsonConvert.SerializeObject(jsonString2);
         }
         public void OnAppearing()
         {

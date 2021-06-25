@@ -70,8 +70,12 @@ namespace Jdsl.Helpers
             set { AppSettings.AddOrUpdateValue("temp", value); }
         }
 
-        public static ObservableCollection<Shop> ShopTempCollection {
-            get; set; } = new ObservableCollection<Shop>();
+        public static string ItmesString
+        {
+            get { return AppSettings.GetValueOrDefault("ItmesString", ""); }
+            set { AppSettings.AddOrUpdateValue("ItmesString", value); }
+        }
+
 
 
 

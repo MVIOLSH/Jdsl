@@ -26,6 +26,10 @@ namespace Jdsl.ViewModels
         public string mapCoordinatesLatitude { get; set; }
         public double lat { get; set; }
         public double lon { get; set; }
+        public string SIshopNumber { get; set; }
+        public string SITown { get; set; }
+        public string SIPhoneNumber { get; set; }
+        public string SIDeliveryDescription { get; set; }
 
         public Shop shopitem { get; set; }
         
@@ -42,7 +46,13 @@ namespace Jdsl.ViewModels
             LaunchMap = new Command(async () => await LaunchMapMethod());
             mapCoordinatesLatitude = "";
             mapCoordinatesLongitude = "";
-           
+            SIDeliveryDescription = "";
+            SIshopNumber = "";
+            SIPhoneNumber = "";
+            SITown = "";
+
+
+
 
 
         }
@@ -62,9 +72,12 @@ namespace Jdsl.ViewModels
                     Items.Add(item);
                     mapCoordinatesLongitude = item.MapCoordinatesLongitude;
                     mapCoordinatesLatitude = item.MapCoordinatesLatitude;
-                    shopitem = item;
-                }
-
+                    SIDeliveryDescription = item.DeliveryInfo;
+                    SIshopNumber = item.ShopNumber.ToString();
+                    SIPhoneNumber = item.PhoneNumber;
+                    SITown = item.Town;
+            }
+                
                 Images.Clear();
                 var imageResponse = await client.GetAsync($"https://jdshops-api-app.azurewebsites.net/api/images/{itemId}");
                 var jsonImage = await imageResponse.Content.ReadAsAsync<ObservableCollection<ImgShop>>();
