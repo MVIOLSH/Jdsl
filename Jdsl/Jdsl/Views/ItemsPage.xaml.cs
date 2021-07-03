@@ -21,6 +21,7 @@ namespace Jdsl.Views
             InitializeComponent();
 
             BindingContext = _viewModel = new ItemsViewModel();
+            _viewModel.LoadItemsCommand.Execute(null);
         }
 
         protected override void OnAppearing()

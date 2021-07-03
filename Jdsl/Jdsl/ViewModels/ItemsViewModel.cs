@@ -38,7 +38,7 @@ namespace Jdsl.ViewModels
         {
             Title = "Shops";
             Items = new ObservableCollection<Shop>();
-            LoadItemsCommand = new Command(ExecuteLoadItemsCommand);
+            LoadItemsCommand = new Command(async ()=> await ExecuteLoadItemsCommand());
 
             ItemTapped = new Xamarin.Forms.Command<Shop>(OnItemSelected);
 
@@ -53,44 +53,55 @@ namespace Jdsl.ViewModels
             await Launcher.OpenAsync(new Uri(("tel:" + shop.PhoneNumber)));
         }
 
-        void ExecuteLoadItemsCommand()
+        async Task ExecuteLoadItemsCommand()
         {
             IsBusy = false;
-            
-                //var client = new HttpClient();
-                //client.DefaultRequestHeaders.Authorization =
-                //    new AuthenticationHeaderValue("Bearer", Settings.SecurityToken);
-                //var response = await client.GetAsync("https://jdshops-api-app.azurewebsites.net/api/shops");
-                
-                //jsonString = await response.Content.ReadAsAsync<ObservableCollection<Shop>>();
-                //Settings.ItmesString = JsonConvert.SerializeObject(jsonString);
-                Items.Clear();
 
-                var items = JsonConvert.DeserializeObject<ObservableCollection<Shop>>(Settings.ItmesString);
-                foreach (var item in items)
-                {
-                    Items.Add(item);
-                }
+            Items.Clear();
+
+            var items = JsonConvert.DeserializeObject<ObservableCollection<Shop>>(Settings.ItmesString);
+            foreach (var item in items)
+            {
+                Items.Add(item);
+            }
+
+         //   var client = new HttpClient();
+           //     client.DefaultRequestHeaders.Authorization =
+              //      new AuthenticationHeaderValue("Bearer", Settings.SecurityToken);
+            //    var response = await client.GetAsync("https://jdshops-api-app.azurewebsites.net/api/shops");
+                
+             //   jsonString = await response.Content.ReadAsAsync<ObservableCollection<Shop>>();
+              //  Settings.ItmesString = JsonConvert.SerializeObject(jsonString);
+              
 
         }
 
         async void Search()
         {
             IsBusy = false;
-
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", Settings.SecurityToken);
-            var response = await client.GetAsync($"https://jdshops-api-app.azurewebsites.net/api/shops?searchPhrase={PhraseSearch}");
-            jsonString = await response.Content.ReadAsAsync<ObservableCollection<Shop>>();
-            var items = jsonString;
-            Items.Clear();
-            foreach (var item in items)
+            if (PhraseSearch != null)
             {
-                Items.Add(item);
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Settings.SecurityToken);
+                var response =
+                    await client.GetAsync(
+                        $"https://jdshops-api-app.azurewebsites.net/api/shops?searchPhrase={PhraseSearch}");
+                jsonString = await response.Content.ReadAsAsync<ObservableCollection<Shop>>();
+                var items = jsonString;
+                Items.Clear();
+
+                foreach (var item in items)
+                {
+                    Items.Add(item);
+                }
+            }
+            else
+            {
+                LoadItemsCommand.Execute(null);
             }
 
-            
+
 
         }
 
@@ -124,7 +135,7 @@ namespace Jdsl.ViewModels
             // This will push the ItemDetailPage onto the navigation stack
             Settings.temp = item.ShopNumber.ToString();
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}");
-            
+
         }
 
        

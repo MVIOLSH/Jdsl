@@ -7,41 +7,62 @@
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}">
 
-    <ScrollView Padding="10">
-    <RefreshView x:DataType="viewModels:ItemDetailViewModel"  Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-
-    <Frame CornerRadius="10" HasShadow="True" BackgroundColor="White" Padding="10">
-        <SwipeView VerticalOptions="Center" HorizontalOptions="Center">
-            <SwipeView.RightItems>
-              <SwipeItems Mode="Execute">
-                  <SwipeItem BackgroundColor="Transparent"
-                             Text="CallShop"
-                             Icon="call.png"
-                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ItemDetailViewModel}}, Path=CallShopCommand}"		
-                             CommandParameter="{Binding .}"/>
-              </SwipeItems>
-          </SwipeView.RightItems>
-          <SwipeView.LeftItems>
-              <SwipeItems Mode="Execute">
-                  <SwipeItem BackgroundColor="Transparent"
-                             Text="Navigate to Shop"
-                             Icon="navigate.png"
-                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ItemDetailViewModel}}, Path=LaunchMap}"		
-                             CommandParameter="{Binding .}"/>
-              </SwipeItems>
-          </SwipeView.LeftItems>
-            <StackLayout Orientation="Vertical" x:DataType="viewModels:ItemDetailViewModel">
-                                            <StackLayout Orientation="Horizontal">
-                                                <Image Source="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ItemDetailViewModel}}} " WidthRequest="100" />
-                                                <StackLayout Orientation="Vertical">
-                                                    <Label Text="Shop Number :" 
-                                                   LineBreakMode="NoWrap" 
-                                                   Style="{DynamicResource ListItemTextStyle}" 
-                                                   FontSize="20"
-                                                   FontAttributes="Bold"
-                                                   TextColor="Black"
-                                                   Padding="10"/>
-                                        <Label Text="{Binding SIshopNumber}" 
+    
+    <RefreshView x:DataType="viewModels:ItemDetailViewModel"  Command="{Binding LoadItemsCommand}" Padding="10" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        
+        <Frame CornerRadius="10" HasShadow="True" BackgroundColor="White" Padding="10">
+            <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1250" />
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackLayout Orientation="Vertical">
+                <SwipeView VerticalOptions="Center" HorizontalOptions="Center">
+                    <SwipeView.RightItems>
+                        <SwipeItems Mode="Execute">
+                            <SwipeItem BackgroundColor="Transparent"
+                                       Text="CallShop"
+                                       Icon="call.png"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ItemDetailViewModel}}, Path=CallShopCommand}"		
+                                       CommandParameter="{Binding .}"/>
+                        </SwipeItems>
+                    </SwipeView.RightItems>
+                    <SwipeView.LeftItems>
+                        <SwipeItems Mode="Execute">
+                            <SwipeItem BackgroundColor="Transparent"
+                                       Text="Navigate to Shop"
+                                       Icon="navigate.png"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ItemDetailViewModel}}, Path=LaunchMap}"		
+                                       CommandParameter="{Binding .}"/>
+                        </SwipeItems>
+                    </SwipeView.LeftItems>
+                        
+                    <CollectionView x:Name="ItemsDetailListView"
+                            ItemsSource="{Binding Items}"
+                            SelectionMode="Multiple"
+                            ItemSizingStrategy="MeasureAllItems"
+                            Grid.Row="0"
+                            VerticalOptions="FillAndExpand">
+                        <CollectionView.EmptyView>
+                            <StackLayout Padding="0" Spacing="0">
+                                <Label HorizontalOptions="Center" Text="No Shops Matching Criteria" FontSize="20" FontAttributes="Bold"></Label>
+                            </StackLayout>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Vertical" x:DataType="models:Shop">
+                                    <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                                        <Image Source="{Binding Facia}" WidthRequest="100" />
+                                        <StackLayout Orientation="Vertical">
+                                            <Label Text="Shop Number :" 
+                                                                               LineBreakMode="NoWrap" 
+                                                                               Style="{DynamicResource ListItemTextStyle}" 
+                                                                               FontSize="20"
+                                                                               FontAttributes="Bold"
+                                                                               TextColor="Black"
+                                                                               Padding="10"/>
+                                            <Label Text="{Binding ShopNumber}" 
                                                    LineBreakMode="NoWrap" 
                                                    Style="{DynamicResource ListItemTextStyle}" 
                                                    FontSize="35"
@@ -49,42 +70,42 @@
                                                    TextColor="Black"
                                                    Padding="10"
                                                    HorizontalOptions="Center"/>
-                                                </StackLayout>
-                                            </StackLayout>
-                                            <Label Text="Town:" 
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <Label Text="Town:" 
                                                    LineBreakMode="WordWrap"
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                                    FontSize="20" 
                                                    TextColor="Black"
                                                    FontAttributes="Bold"/>
 
-                                <Label Text="{Binding SITown}" 
+                                    <Label Text="{Binding Town}" 
                                                    LineBreakMode="WordWrap"
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                                    FontSize="20" 
                                                    TextColor="Black"/>
 
-                                            <Label Text="Phone Number:" 
+                                    <Label Text="Phone Number:" 
                                                    LineBreakMode="WordWrap"
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                                    FontSize="20" 
                                                    TextColor="Black"
                                                    FontAttributes="Bold"/>
 
-                                <Label Text="{Binding SIPhoneNumber}" 
+                                    <Label Text="{Binding PhoneNumber}" 
                                                    LineBreakMode="WordWrap"
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                                    FontSize="20" 
                                                    TextColor="Black"/>
 
-                                            <Label Text="Delivery Description: "
+                                    <Label Text="Delivery Description: "
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                                    FontSize="25"
                                                    FontAttributes="Bold"
                                                    TextColor="Black"
 />
 
-                                <Label Text="{Binding  SIDeliveryDescription}"
+                                    <Label Text="{Binding DeliveryInfo}"
                                                    LineBreakMode="WordWrap"
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                                    FontSize="15"
@@ -92,61 +113,70 @@
 
 
 
-                                            <Label Text="Map Longitude: "
+                                    <Label Text="Map Longitude: "
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                                    FontSize="25"
                                                    FontAttributes="Bold"
                                                    TextColor="Black"
                                             />
 
-                                <Label Text="{Binding shopitem.MapCoordinatesLongitude}"
+                                    <Label Text="{Binding MapCoordinatesLongitude}"
                                                    LineBreakMode="WordWrap"
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                                    FontSize="15"
                                                    TextColor="Black"/>
 
-                                            <Label Text="Map Latitude: "
+                                    <Label Text="Map Latitude: "
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                                    FontSize="25"
                                                    FontAttributes="Bold"
                                                    TextColor="Black"
                                             />
 
-                                <Label Text="{Binding shopitem.MapCoordinatesLatitude}"
+                                    <Label Text="{Binding MapCoordinatesLatitude}"
                                                    LineBreakMode="WordWrap"
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                                    FontSize="15"
                                                    TextColor="Black"/>
-                               
-                                    <CollectionView x:Name="Images"
-                                                    x:DataType="viewModels:ItemDetailViewModel"
-                                                    ItemsSource="{Binding Images}"
-                                                    SelectionMode="Single">
-                            <CollectionView.EmptyView>
-                                <StackLayout Padding="10,0,10,0">
-                                    <Label HorizontalOptions="Center" Text="This shop have no Images / Pictures" FontSize="20" FontAttributes="Bold"></Label>
+
                                 </StackLayout>
-                            </CollectionView.EmptyView>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Frame CornerRadius="10"  HasShadow="True" BackgroundColor="White" BorderColor="{StaticResource Primary}">
-                                        <StackLayout Padding="0" Margin="0" Spacing="10" x:DataType="models:ImgShop" BackgroundColor="White" Orientation="Vertical">
-                                            <Image Source="{Binding Url}" Margin="0" VerticalOptions="FillAndExpand" ></Image>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                       
+                    </SwipeView>
+                <CollectionView x:Name="ImagesView"
+                                        ItemsSource="{Binding Images}"
+                                        SelectionMode="Multiple"
+                                        Grid.Row="1"
+                        >
+                    <CollectionView.EmptyView>
+                        <StackLayout Padding="10,0,10,0">
+                            <Label HorizontalOptions="Center" Text="This shop have no Images / Pictures" FontSize="20" FontAttributes="Bold"></Label>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="10"  HasShadow="True" BackgroundColor="White" BorderColor="{StaticResource Primary}">
+                                <StackLayout Padding="0" Margin="0" Spacing="10" x:DataType="models:ImgShop" BackgroundColor="White" Orientation="Vertical">
+                                    <Image Source="{Binding Url}" Margin="0" VerticalOptions="FillAndExpand" ></Image>
 
-                                            <Label  Text="{Binding Description}"
+                                    <Label  Text="{Binding Description}"
                                                 FontSize="20"
                                                 TextColor="Black"
                                         />
-                                            
-                                        </StackLayout>
-                                    </Frame>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+               
             </StackLayout>
-        </SwipeView>
-    </Frame>
-        </RefreshView>
-    </ScrollView>
+            </Grid>
+            </ScrollView>
+        </Frame>
+    </RefreshView>
+
 </ContentPage>
     
