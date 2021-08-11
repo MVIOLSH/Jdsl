@@ -21,5 +21,11 @@ namespace Jdsl.Models
 
         public string MapCoordinatesLongitude { get; set; }
         public string MapCoordinatesLatitude { get; set; }
+        public string Image1Url { get; set; }
+        public string Image2Url { get; set; }
+        public string Image3Url { get; set; }
+        public string Image4Url { get; set; }
+        public string Image5Url { get; set; }
+
     }
 }

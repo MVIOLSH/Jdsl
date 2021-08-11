@@ -30,7 +30,7 @@ namespace Jdsl.ViewModels
         public void LoadList()
         {
             var Http = new HttpClient();
-            var response = Http.GetAsync("https://jdshops-api-app.azurewebsites.net/api/shops");
+            var response = Http.GetAsync("https://jdshopsapi.szymanski.uk/api/shops");
             var json = JsonConvert.DeserializeObject<ObservableCollection<Shop>>(response.ToString());
             shopsCollection = json;
         }

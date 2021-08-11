@@ -11,6 +11,7 @@ namespace Jdsl.Views
         {
             InitializeComponent();
             BindingContext = _viewModel =new ItemDetailViewModel();
+            
         }
         protected override void OnAppearing()
         {

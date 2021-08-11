@@ -14,6 +14,7 @@ using Flurl.Http;
 using Jdsl.Helpers;
 using Jdsl.Views;
 using Xamarin.Forms;
+using Plugin.Fingerprint;
 
 namespace Jdsl.Services
 {
@@ -24,7 +25,7 @@ namespace Jdsl.Services
             var client = new HttpClient();
            
           
-            var response = await client.PostAsJsonAsync<RegisterModel>("https://jdshops-api-app.azurewebsites.net/api/account/register/",
+            var response = await client.PostAsJsonAsync<RegisterModel>("https://jdshopsapi.szymanski.uk/api/account/register/",
                 model);
             return response.IsSuccessStatusCode;
             
@@ -34,7 +35,7 @@ namespace Jdsl.Services
         {
             var client = new HttpClient();
             var response =
-                await client.PostAsJsonAsync<LoginModel>("https://jdshops-api-app.azurewebsites.net/api/account/login", loginModel);
+                await client.PostAsJsonAsync<LoginModel>("https://jdshopsapi.szymanski.uk/api/account/login", loginModel);
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();

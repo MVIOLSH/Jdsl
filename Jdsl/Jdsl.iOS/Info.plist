@@ -61,6 +61,8 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Launch</string>
 	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<string>Assets.xcassets/JDSLIcons.appiconset</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Use your Face or Fingerprint to LogIn!</string>
 </dict>
 </plist>

@@ -35,7 +35,7 @@ namespace Jdsl.ViewModels
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", Settings.SecurityToken);
-            var response = await client.GetAsync("https://jdshops-api-app.azurewebsites.net/api/announcements");
+            var response = await client.GetAsync("https://jdshopsapi.szymanski.uk/api/announcements");
             var jsonString = await response.Content.ReadAsAsync<ObservableCollection<Announcement>>();
             var items = jsonString;
             Announcements.Clear();
@@ -43,7 +43,7 @@ namespace Jdsl.ViewModels
             {
                 Announcements.Add(item);
             }
-            var response2 = await client.GetAsync("https://jdshops-api-app.azurewebsites.net/api/shops");
+            var response2 = await client.GetAsync("https://jdshopsapi.szymanski.uk/api/shops");
             var jsonString2 = await response2.Content.ReadAsAsync<ObservableCollection<Shop>>();
             Settings.ItmesString = JsonConvert.SerializeObject(jsonString2);
         }
